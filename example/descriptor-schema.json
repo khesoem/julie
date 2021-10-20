@@ -1,0 +1,341 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/JulieOpsTopology",
+    "definitions": {
+        "JulieOpsTopology": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "context": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Project"
+                    }
+                },
+                "platform": {
+                    "$ref": "#/definitions/Platform"
+                }
+            },
+            "required": [
+                "context",
+                "projects"
+            ],
+            "title": "JulieOpsTopology"
+        },
+        "Platform": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "schema_registry": {
+                    "$ref": "#/definitions/SchemaRegistry"
+                },
+                "control_center": {
+                    "$ref": "#/definitions/ControlCenter"
+                }
+            },
+            "required": [
+                "control_center",
+                "schema_registry"
+            ],
+            "title": "Platform"
+        },
+        "ControlCenter": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ControlCenterInstance"
+                    }
+                }
+            },
+            "required": [
+                "instances"
+            ],
+            "title": "ControlCenter"
+        },
+        "ControlCenterInstance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "principal": {
+                    "type": "string"
+                },
+                "appId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "appId",
+                "principal"
+            ],
+            "title": "ControlCenterInstance"
+        },
+        "SchemaRegistry": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SchemaRegistryInstance"
+                    }
+                }
+            },
+            "required": [
+                "instances"
+            ],
+            "title": "SchemaRegistry"
+        },
+        "SchemaRegistryInstance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "principal": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "principal",
+                "topic"
+            ],
+            "title": "SchemaRegistryInstance"
+        },
+        "Project": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "consumers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Consumer"
+                    }
+                },
+                "producers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Consumer"
+                    }
+                },
+                "streams": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/KStreams"
+                    }
+                },
+                "ksql": {
+                    "$ref": "#/definitions/Ksql"
+                },
+                "connectors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Connector"
+                    }
+                },
+                "topics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Topic"
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "topics"
+            ],
+            "title": "Project"
+        },
+        "Connector": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "principal": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "status_topic": {
+                    "type": "string"
+                },
+                "offset_topic": {
+                    "type": "string"
+                },
+                "configs_topic": {
+                    "type": "string"
+                },
+                "topics": {
+                    "$ref": "#/definitions/Topics"
+                }
+            },
+            "required": [
+                "principal"
+
+            ],
+            "title": "Connector"
+        },
+        "Topics": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "read": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "write": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Topics"
+        },
+        "Consumer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "principal": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "principal"
+            ],
+            "title": "Consumer"
+        },
+        "Ksql": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "artefacts": {
+                    "$ref": "#/definitions/Artefacts"
+                }
+            },
+            "required": [
+                "artefacts"
+            ],
+            "title": "Ksql"
+        },
+        "Artefacts": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "streams": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TableElement"
+                    }
+                },
+                "tables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TableElement"
+                    }
+                }
+            },
+            "required": [
+                "streams",
+                "tables"
+            ],
+            "title": "Artefacts"
+        },
+        "TableElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "path": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "path"
+            ],
+            "title": "TableElement"
+        },
+        "KStreams": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "principal": {
+                    "type": "string"
+                },
+                "topics": {
+                    "$ref": "#/definitions/Topics"
+                },
+                "applicationId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "principal",
+                "topics"
+            ],
+            "title": "KStreams"
+        },
+        "Topic": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "config": {
+                    "$ref": "#/definitions/Config"
+                },
+                "dataType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "config",
+                "name"
+            ],
+            "title": "Topic"
+        },
+        "Config": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "replication.factor": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "num.partitions": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "title": "Config"
+        }
+    }
+}
