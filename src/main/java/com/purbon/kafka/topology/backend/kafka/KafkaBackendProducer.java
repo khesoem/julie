@@ -53,6 +53,9 @@ public class KafkaBackendProducer {
       future.get();
     } catch (InterruptedException | ExecutionException e) {
       e.printStackTrace();
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
 
@@ -62,6 +65,9 @@ public class KafkaBackendProducer {
         future.get();
       } catch (InterruptedException | ExecutionException e) {
         LOGGER.error(e);
+        if (e instanceof InterruptedException) {
+          Thread.currentThread().interrupt();
+        }
       }
     }
     producer.close();

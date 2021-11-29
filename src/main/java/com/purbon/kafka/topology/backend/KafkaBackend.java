@@ -1,4 +1,5 @@
 package com.purbon.kafka.topology.backend;
+import com.purbon.kafka.topology.backend.kafka.Map;
 
 import com.purbon.kafka.topology.Configuration;
 import com.purbon.kafka.topology.backend.kafka.KafkaBackendConsumer;
@@ -101,6 +102,7 @@ public class KafkaBackend implements Backend, RecordReceivedCallback {
       thread.join();
     } catch (InterruptedException e) {
       LOGGER.error(e);
+        Thread.currentThread().interrupt();
     }
     latest = null;
     thread = null;
