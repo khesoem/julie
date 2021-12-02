@@ -32,6 +32,9 @@ public class CCloudCLI {
       return Arrays.asList(items);
     } catch (IOException | InterruptedException e) {
       handleError(stdout, e);
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
     }
     return null;
   }
@@ -46,6 +49,9 @@ public class CCloudCLI {
           .collect(Collectors.toMap(ServiceAccount::getName, i -> i));
     } catch (IOException | InterruptedException e) {
       handleError(stdout, e);
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
       return null;
     }
   }
@@ -57,6 +63,9 @@ public class CCloudCLI {
       stdout = run(cmd);
     } catch (IOException | InterruptedException e) {
       handleError(stdout, e);
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
 
@@ -78,6 +87,9 @@ public class CCloudCLI {
       sa = mapper.readValue(stdout, ServiceAccount.class);
     } catch (IOException | InterruptedException e) {
       handleError(stdout, e);
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
     }
     return sa;
   }
@@ -89,6 +101,9 @@ public class CCloudCLI {
       stdout = run(cmd);
     } catch (IOException | InterruptedException e) {
       handleError(stdout, e);
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
 
