@@ -1,4 +1,5 @@
 package com.purbon.kafka.topology.api.ksql;
+import var;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.purbon.kafka.topology.clients.ArtefactClient;
@@ -51,6 +52,9 @@ public class KsqlApiClient implements ArtefactClient {
       var result = client.executeStatement(sql).get();
       return new QueryResponse(result).asMap();
     } catch (InterruptedException | ExecutionException e) {
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
       throw new IOException(e);
     }
   }
@@ -72,6 +76,9 @@ public class KsqlApiClient implements ArtefactClient {
       }
     } catch (InterruptedException | ExecutionException e) {
       e.printStackTrace();
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
       throw new IOException(e);
     }
   }
@@ -89,6 +96,9 @@ public class KsqlApiClient implements ArtefactClient {
       infos = client.listTables().get();
     } catch (InterruptedException | ExecutionException e) {
       e.printStackTrace();
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
       throw new IOException(e);
     }
 
@@ -116,6 +126,9 @@ public class KsqlApiClient implements ArtefactClient {
       infos = client.listStreams().get();
     } catch (InterruptedException | ExecutionException e) {
       e.printStackTrace();
+      if (e instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
       throw new IOException(e);
     }
 
